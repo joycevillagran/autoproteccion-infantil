@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La primera lección de autoprotección para niños de 3 a 7 años</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            lightBg: '#f4f7f9',      
+                            trustBlue: '#2b5a84',    
+                            trustBlueHover: '#22486a',
+                            accentRose: '#f3a39b',   
+                            accentLight: '#eef4f8',  
+                            textDark: '#2d3748',     
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; color: #2d3748; background-color: #f4f7f9; }
+        h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; }
+        .scroll-smooth { scroll-behavior: smooth; }
+        
+        /* Correcciones obligatorias para que el selector de país de intl-tel-input luzca perfecto con Tailwind */
+        .iti { width: 100% !important; display: block !important; }
+        .iti__country-list { z-index: 100; max-width: 300px; text-align: left; border-radius: 0.75rem; }
+        .iti__selected-dial-code { font-size: 0.95rem; color: #4a5568; margin-left: 4px; }
+    </style>
+</head>
+<body class="scroll-smooth antialiased">
+
+    <header class="w-full bg-white border-b border-gray-100 py-4 shadow-sm">
+        <div class="max-w-4xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <svg class="w-6 h-6 text-brand-trustBlue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+                <span class="font-heading font-bold text-lg text-brand-trustBlue tracking-wide">Autoprotección Infantil</span>
+            </div>
+            <span class="text-xs bg-brand-accentRose text-white font-semibold px-3 py-1 rounded-full tracking-wider uppercase">Acceso Anticipado</span>
+        </div>
+    </header>
+
+    <section class="max-w-4xl mx-auto px-6 pt-12 pb-16 text-center">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-brand-trustBlue leading-tight mb-8 max-w-3xl mx-auto">
+            La primera lección de autoprotección para niños de 3 a 7 años
+        </h1>
+        
+        <div class="bg-white rounded-2xl p-6 md:p-8 shadow-md border border-blue-50 mb-8 max-w-2xl mx-auto border-t-4 border-t-brand-accentRose">
+            <p class="text-base md:text-lg text-gray-600 font-medium italic mb-4">
+                Hay una pregunta que toda madre y padre se hace en silencio, y casi nunca dice en voz alta:
+            </p>
+            <p class="text-xl md:text-2xl font-bold text-brand-trustBlue font-heading">
+                "¿Mi hijo sabría qué hacer si yo no estuviera ahí?"
+            </p>
+        </div>
+
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
+            Lo pensamos cuando lo dejamos en la escuela, cuando juega en el parque con otros niños, cuando va a una fiesta, o when se queda con alguien que no elegimos del todo nosotros.
+        </p>
+    </section>
+
+    <section class="bg-white py-16 border-t border-b border-gray-100">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="flex flex-col sm:flex-row items-center sm:items-center justify-center gap-8 mb-12">
+                <div class="flex-shrink-0 w-44 h-44 md:w-52 md:h-52 rounded-2xl overflow-hidden shadow-xl border-4 border-brand-accentRose/20 bg-gray-50 flex items-center justify-center text-gray-400 font-sans italic text-xs text-center p-4">
+                    <span>[ Tu Foto Aquí ]<br>(Sugerido: cuadrado)</span>
+                    </div>
+                <div class="max-w-md text-center sm:text-left">
+                    <p class="text-base md:text-lg leading-relaxed text-gray-700 font-medium">
+                        Soy Joyce Villagrán, mamá de un niño de 5 años, y durante años evité esa pregunta. Hasta que entendí algo que cambió la forma en que veo su seguridad:
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-brand-accentLight rounded-xl p-6 border-l-4 border-brand-trustBlue my-8">
+                <p class="text-lg md:text-xl font-bold text-brand-trustBlue font-heading leading-snug">
+                    La inocencia que más amamos de nuestros hijos es, también, lo que los hace vulnerables.
+                </p>
+            </div>
+
+            <div class="space-y-4 text-base md:text-lg leading-relaxed text-gray-700">
+                <p class="font-medium text-red-600/90">
+                    A abuso, secuestros, a situaciones de riesgo que pueden marcarlos física y emocionalmente para el resto de su vida.
+                </p>
+                <p>
+                    No te lo digo para asustarte. Te lo digo porque la mayoría de los padres prefiere no pensarlo, hasta que ya es tarde. Y porque sí existe algo que puedes hacer hoy: enseñarle a tu hijo a reconocer el peligro y actuar, sin que pierda su inocencia ni viva con miedo.
+                </p>
+            </div>
+
+            <div class="mt-12 text-center bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 md:p-8 border border-blue-100 shadow-sm">
+                <p class="text-lg md:text-xl font-bold text-brand-trustBlue font-heading">
+                    Por eso creé la primera lección de autoprotección para niños de 3 a 7 años
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto px-6 py-16">
+        <h2 class="text-2xl md:text-3xl font-bold text-center text-brand-trustBlue font-heading mb-12">
+            Lo vas a vivir:
+        </h2>
+        
+        <div class="grid md:grid-cols-2 gap-8 items-stretch">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-red-100 flex flex-col">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="w-8 h-8 rounded-full bg-red-100 text-red-500 flex items-center justify-center font-bold text-sm">✕</span>
+                    <h3 class="text-xl font-bold text-red-700 font-heading">Antes</h3>
+                </div>
+                <ul class="space-y-4 text-gray-600 flex-grow">
+                    <li class="flex items-start"><span class="text-red-400 mr-2 font-medium">•</span><span>Mi hijo es muy inocente.</span></li>
+                    <li class="flex items-start"><span class="text-red-400 mr-2 font-medium">•</span><span>No sé cómo hablarle de esto sin asustarlo.</span></li>
+                    <li class="flex items-start"><span class="text-red-400 mr-2 font-medium">•</span><span>Me preocupa que confíe demasiado en cualquier persona.</span></li>
+                    <li class="flex items-start"><span class="text-red-400 mr-2 font-medium">•</span><span>No sé exactamente qué enseñarle para prepararlo.</span></li>
+                </ul>
+            </div>
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-md border-2 border-green-100 flex flex-col relative overflow-hidden">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold text-sm">✓</span>
+                    <h3 class="text-xl font-bold text-green-700 font-heading">Después</h3>
+                </div>
+                <ul class="space-y-4 text-gray-700 flex-grow">
+                    <li class="flex items-start"><span class="text-green-500 mr-2 font-bold">✓</span><span>Mi hijo reconoce señales básicas de peligro.</span></li>
+                    <li class="flex items-start"><span class="text-green-500 mr-2 font-bold">✓</span><span>Sabe identificar cuándo algo lo hace sentir incómodo.</span></li>
+                    <li class="flex items-start"><span class="text-green-500 mr-2 font-bold">✓</span><span>Tiene herramientas simples para pedir ayuda.</span></li>
+                    <li class="flex items-start"><span class="text-green-500 mr-2 font-bold">✓</span><span>Hemos practicado juntos qué hacer en distintas situaciones.</span></li>
+                    <li class="flex items-start font-semibold text-brand-trustBlue"><span class="text-green-500 mr-2 font-bold">✓</span><span>Me siento más tranquila porque sé que está mejor preparado.</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-brand-accentLight/60 py-16 border-t border-b border-blue-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-brand-trustBlue font-heading mb-12">
+                ¿Qué incluye esta primera lección?
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="text-3xl mb-4">🎥</div>
+                    <h3 class="text-xl font-bold text-brand-trustBlue font-heading mb-3">Video corto para padres</h3>
+                    <p class="text-gray-600 leading-relaxed text-sm md:text-base">Te enseño cómo introducir este tema de forma natural, sin generar miedo ni ansiedad. Una estrategia simple que cualquier niño pequeño puede comprender y recordar.</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="text-3xl mb-4">🎬</div>
+                    <h3 class="text-xl font-bold text-brand-trustBlue font-heading mb-3">Cuento animado para tu hijo</h3>
+                    <p class="text-gray-600 leading-relaxed text-sm md:text-base">Una historia donde tu hijo ve una situación cotidiana, identifica señales de alerta y aprende qué hacer. Entretenida, fácil de entender, apropiada para su edad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-3xl mx-auto px-6 py-16">
+        <h2 class="text-2xl md:text-3xl font-bold text-center text-brand-trustBlue font-heading mb-12">Cómo se usa</h2>
+        <div class="relative border-l-2 border-brand-accentRose/50 ml-4 md:ml-32 space-y-12">
+            <div class="relative pl-8"><span class="absolute -left-[17px] top-0 bg-brand-accentRose text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow">1</span><p class="text-lg font-semibold text-brand-trustBlue font-heading">Primero ves tú el video</p></div>
+            <div class="relative pl-8"><span class="absolute -left-[17px] top-0 bg-brand-trustBlue text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow">2</span><p class="text-lg font-semibold text-brand-trustBlue font-heading">Luego tu hijo ve el cuento animado contigo.</p></div>
+            <div class="relative pl-8"><span class="absolute -left-[17px] top-0 bg-brand-accentRose text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shadow">3</span><p class="text-lg font-semibold text-brand-trustBlue font-heading">Conversan y practican juntos lo aprendido.</p></div>
+        </div>
+    </section>
+
+    <section id="registro" class="max-w-3xl mx-auto px-4 md:px-6 py-12 mb-16">
+        <div class="bg-gradient-to-b from-white to-brand-accentLight rounded-3xl p-6 md:p-10 shadow-xl border border-blue-100 text-center relative overflow-hidden">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-brand-accentRose/10 rounded-full blur-xl"></div>
+            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-brand-trustBlue/10 rounded-full blur-xl"></div>
+
+            <span class="inline-block bg-brand-trustBlue text-white text-xs px-4 py-1.5 rounded-full font-bold uppercase tracking-wider mb-4">Grupo Fundador</span>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-brand-trustBlue font-heading mb-4">Acceso anticipado: grupo fundador</h2>
+            <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6 max-w-2xl mx-auto">Voy a lanzar esta primera lección a un grupo reducido de familias antes de abrirla al público. Si te registras hoy, formas parte de este grupo fundador y serás de las primeras personas en recibir, totalmente gratis, el video para ti y el cuento animado para tu hijo — directo a tu correo y WhatsApp, en los próximos 7 días.</p>
+
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 inline-block mb-8">
+                <p class="text-amber-800 font-semibold text-sm md:text-base flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5 text-amber-600 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    Solo voy a abrir este acceso anticipado a las primeras 50 familias.
+                </p>
+            </div>
+
+            <form id="registrationForm" class="max-w-md mx-auto space-y-4 mb-8" onsubmit="event.preventDefault(); alert('¡Datos recibidos con éxito!');">
+                
+                <div class="text-left">
+                    <label for="nombre" class="sr-only">Tu nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Introduce tu nombre completo..." class="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-trustBlue focus:border-brand-trustBlue outline-none shadow-sm transition placeholder:text-gray-400 text-base bg-white">
+                </div>
+
+                <div class="text-left">
+                    <label for="email" class="sr-only">Tu correo electrónico</label>
+                    <input type="email" id="email" name="email" required placeholder="Introduce tu correo electrónico principal..." class="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-trustBlue focus:border-brand-trustBlue outline-none shadow-sm transition placeholder:text-gray-400 text-base bg-white">
+                </div>
+                
+                <div class="text-left relative">
+                    <label for="whatsapp" class="sr-only">Tu número de WhatsApp</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" required class="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-brand-trustBlue focus:border-brand-trustBlue outline-none shadow-sm transition text-base bg-white">
+                </div>
+
+                <button type="submit" class="w-full bg-brand-trustBlue hover:bg-brand-trustBlueHover text-white font-heading font-bold text-lg px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition transform active:scale-[0.99] flex items-center justify-center gap-2 mt-2">
+                    Sí, quiero que mi hijo sepa protegerse →
+                </button>
+            </form>
+            <p class="text-xs text-gray-500 mb-8 max-w-sm mx-auto">(Te enviaremos el acceso a la clase y el cuento animado por WhatsApp para tu comodidad)</p>
+
+            <div class="max-w-md mx-auto text-left space-y-3 border-t border-gray-200/60 pt-6">
+                <div class="flex items-start text-sm md:text-base text-gray-700"><span class="text-green-500 mr-2.5 font-bold">✔</span><span>Acceso gratuito por ser parte del grupo fundador</span></div>
+                <div class="flex items-start text-sm md:text-base text-gray-700"><span class="text-green-500 mr-2.5 font-bold">✔</span><span>Diseñado para niños de 3 a 7 años</span></div>
+                <div class="flex items-start text-sm md:text-base text-gray-700"><span class="text-green-500 mr-2.5 font-bold">✔</span><span>Sin alarmismo ni contenido traumático</span></div>
+                <div class="flex items-start text-sm md:text-base text-gray-700"><span class="text-green-500 mr-2.5 font-bold">✔</span><span>Creado por una madre, para otras madres y padres</span></div>
+                <div class="flex items-start text-sm md:text-base text-gray-700"><span class="text-green-500 mr-2.5 font-bold">✔</span><span>Recibirás tu acceso directo en tu correo y WhatsApp, en un máximo de 7 días</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white py-16 border-t border-gray-100">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-brand-trustBlue font-heading mb-10">"Pero, ¿de verdad necesito esto?"</h2>
+            <div class="space-y-6 text-base md:text-lg leading-relaxed text-gray-700">
+                <p class="font-medium text-brand-trustBlue">Si tu hijo va a la escuela, juega con otros niños sin que estés justo al lado, o se encuentra al cuidado de alguien más porque tú estás trabajando... entonces sí, lo necesita.</p>
+                <p>Queremos pensar que a nuestro hijo "eso" no le va a pasar. Es lo que pensamos todos, hasta que deja de ser hipotético.</p>
+                <p>No se trata de vivir con miedo. Se trata de que tu hijo tenga, hoy, las herramientas que la mayoría de los niños no tiene: reconocer cuándo algo no está bien y saber qué hacer al respecto.</p>
+                <p class="bg-gray-50 border border-gray-200 rounded-xl p-4 italic font-medium">Eso no te lo va a enseñar la escuela. Y entre más esperes, más tiempo pasa sin que él lo sepa.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gradient-to-br from-brand-trustBlue to-[#1e3e5c] text-white py-16 text-center px-6">
+        <div class="max-w-2xl mx-auto">
+            <p class="text-xl md:text-2xl lg:text-3xl font-heading font-bold leading-snug mb-10">Porque la mejor protección no es estar siempre a su lado. Es enseñarle qué hacer cuando tú no estás.</p>
+            <a href="#registro" class="inline-block bg-brand-accentRose hover:bg-[#e28e85] text-white font-heading font-bold text-lg px-8 py-4 rounded-xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-0.5 active:translate-y-0">Quiero el acceso gratuito →</a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center text-xs">
+        <div class="max-w-4xl mx-auto px-6">
+            <p>© 2026 Autoprotección Infantil. Todos los derechos reservados.</p>
+            <p class="mt-2 text-gray-500">Diseñado con respeto y compromiso con la seguridad de nuestros hijos.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+    <script>
+        const input = document.querySelector("#whatsapp");
+        window.intlTelInput(input, {
+            initialCountry: "auto",
+            geoIpLookup: function(success, failure) {
+                fetch('https://ipapi.co/json/')
+                    .then(response => response.json())
+                    .then(data => success(data.country_code))
+                    .catch(() => success('MX')); // País por defecto si falla el rastreo por IP (puedes cambiarlo)
+            },
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+            separateDialCode: true,
+            preferredCountries: ["mx", "co", "es", "ar", "pe", "cl"] // Ajusta tus países prioritarios aquí
+        });
+    </script>
+
+</body>
+</html>
