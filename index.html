@@ -18,6 +18,7 @@
         --c-card:rgba(255,255,255,0.14); /* superficie translúcida: inputs, selección, pista del anillo */
     }
     *{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     html,body{margin:0;padding:0;background:var(--c-bg);overflow:hidden;height:100%}
     body{
         color:var(--c-sec);
@@ -330,6 +331,37 @@
 
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
 <script>
+    // ================= Tracking (vistas, avance por slide, abandono del form) =================
+    var scriptURL = 'https://script.google.com/macros/s/AKfycbzoserlmhUvKK8hd5qrxOBVNYV2-qhTZqAibRivJ8JAv5Dxmd-hvNj-AOFa-WWIAPS0/exec';
+
+    function cxGetVisitante(){
+        try {
+            var id = localStorage.getItem('cxVisitante');
+            if (!id) {
+                id = 'v_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+                localStorage.setItem('cxVisitante', id);
+            }
+            return id;
+        } catch(e) { return ''; }
+    }
+    var cxVisitanteId = cxGetVisitante();
+
+    // useBeacon: para eventos disparados justo cuando la persona se va (pagehide / tab oculta),
+    // donde un fetch normal puede quedar cortado antes de salir.
+    function cxTrack(evento, slide, useBeacon){
+        var data = new FormData();
+        data.set('evento', evento);
+        data.set('visitante', cxVisitanteId);
+        if (slide !== undefined) data.set('slide', String(slide));
+        if (useBeacon && navigator.sendBeacon) {
+            navigator.sendBeacon(scriptURL, data);
+        } else {
+            fetch(scriptURL, { method: 'POST', body: data, mode: 'no-cors' }).catch(function(){});
+        }
+    }
+
+    cxTrack('vista_pagina');
+
     // ================= Carrusel =================
     (function(){
         var viewport = document.getElementById('cxViewport');
@@ -338,6 +370,16 @@
         var total = slides.length;
         var index = 0;
         var formSlideIndex = slides.indexOf(document.getElementById('cxFormSlide'));
+        var maxSlideSeen = 0;
+        var formReachedTracked = false;
+
+        function trackSlide(){
+            if (index > maxSlideSeen) maxSlideSeen = index;
+            if (!formReachedTracked && formSlideIndex >= 0 && index === formSlideIndex) {
+                formReachedTracked = true;
+                cxTrack('llego_formulario', index);
+            }
+        }
 
         slides.forEach(function(slide, i){
             var ring = slide.querySelector('.cx-ring');
@@ -368,10 +410,12 @@
             }
             index = Math.max(0, Math.min(total - 1, n));
             render(true);
+            trackSlide();
         }
 
         window.addEventListener('resize', function(){ render(false); });
         render(false);
+        trackSlide();
 
         // --- Rueda / trackpad ---
         var wheelAccum = 0;
@@ -466,6 +510,18 @@
             if (e.key === 'ArrowRight') { e.preventDefault(); goTo(index + 1); }
             else if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(index - 1); }
         });
+
+        // --- Registra dónde se quedó quien no completó el formulario ---
+        var dropoffSent = false;
+        function sendDropoff(){
+            if (dropoffSent || window.cxFormEnviado) return;
+            dropoffSent = true;
+            cxTrack('avance_slide', maxSlideSeen, true);
+        }
+        window.addEventListener('pagehide', sendDropoff);
+        document.addEventListener('visibilitychange', function(){
+            if (document.visibilityState === 'hidden') sendDropoff();
+        });
     })();
 
     // ---- Teléfono (WhatsApp) ----
@@ -489,7 +545,6 @@
     // ---- Envío a Google Sheets ----
     window.cxFormEnviado = false;
     var form = document.getElementById('registrationForm');
-    var scriptURL = 'https://script.google.com/macros/s/AKfycbzoserlmhUvKK8hd5qrxOBVNYV2-qhTZqAibRivJ8JAv5Dxmd-hvNj-AOFa-WWIAPS0/exec';
 
     form.addEventListener('submit', function(e){
         e.preventDefault();
@@ -501,6 +556,8 @@
         var fullPhoneNumber = iti.getNumber();
         var formData = new FormData(form);
         formData.set('whatsapp', fullPhoneNumber);
+        formData.set('evento', 'registro_completo');
+        formData.set('visitante', cxVisitanteId);
 
         fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
             .then(function(){
