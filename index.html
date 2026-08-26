@@ -110,7 +110,7 @@
         <section class="cx-slide">
             <div class="cx-slide-inner">
                 <div class="cx-tagrow"><span class="cx-eyebrow-dark">Tú lo sabes</span><span class="cx-ring"></span></div>
-                <h1 class="cx-h1">Sabes que no eres una <strong>madre cualquiera</strong>.</h1>
+                <h1 class="cx-h1">Sabes que no eres una <strong>madre&nbsp;cualquiera</strong>.</h1>
                 <p class="cx-p" style="margin-top:22px">Trabajas, resuelves, te anticipas, te entregas. Y aunque nadie te lo reconoce, <strong>tú sí sabes lo que cuesta</strong>.</p>
                 <p class="cx-hint cx-sweep">Desliza &gt;</p>
             </div>
@@ -303,7 +303,7 @@
         <!-- SLIDE 21 — Formulario -->
         <section class="cx-slide" id="cxFormSlide">
             <div class="cx-slide-inner">
-                <div class="cx-tagrow"><span class="cx-eyebrow-dark">Muestra gratis</span><span class="cx-ring"></span></div>
+                <div class="cx-tagrow" id="cxFormTagrow"><span class="cx-eyebrow-dark">Muestra gratis</span><span class="cx-ring"></span></div>
                 <div class="cx-stack" id="cxFormStack">
                     <p class="cx-p">Regístrate para recibir tu muestra gratis el <strong>2 de septiembre 2026</strong>.</p>
                     <form id="registrationForm" class="cx-form-fields">
@@ -320,7 +320,7 @@
                         </svg>
                     </div>
                     <p class="cx-success-title">¡Registro completado!</p>
-                    <p class="cx-success-sub">Revisa tu correo y WhatsApp: ahí te llegará tu muestra gratis el 2 de septiembre 2026.</p>
+                    <p class="cx-success-sub">Revisa tu correo: ahí te llegará tu muestra gratis el 2 de septiembre 2026.</p>
                 </div>
             </div>
         </section>
@@ -505,6 +505,7 @@
         fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
             .then(function(){
                 window.cxFormEnviado = true;
+                document.getElementById('cxFormTagrow').style.display = 'none';
                 document.getElementById('cxFormStack').style.display = 'none';
                 document.getElementById('cxFormSuccess').style.display = 'flex';
             })
