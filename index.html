@@ -88,6 +88,13 @@
     .cx-btn:hover{opacity:0.85}
     .cx-btn:disabled{opacity:0.6;cursor:default}
 
+    /* ---- Feedback de registro completado ---- */
+    @keyframes cxSuccessIn{0%{opacity:0;transform:scale(0.85)}100%{opacity:1;transform:scale(1)}}
+    .cx-form-success{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;animation:cxSuccessIn 380ms cubic-bezier(.23,1,.32,1)}
+    .cx-success-icon{width:64px;height:64px;flex-shrink:0;border-radius:50%;background:var(--c-accent);display:flex;align-items:center;justify-content:center}
+    .cx-success-title{margin:0;font-size:20px;line-height:1.3;font-weight:800;color:var(--c-accent);font-family:'Nunito',sans-serif}
+    .cx-success-sub{margin:0;font-size:15px;line-height:1.6;color:var(--c-sec)}
+
     /* Corrección intl-tel-input dentro de un layout de ancho fijo */
     .iti{width:100% !important;display:block !important}
     .iti__country-list{z-index:9999;max-width:300px;text-align:left;border-radius:0.75rem;box-shadow:0 10px 25px rgba(0,0,0,0.15);border:none}
@@ -102,7 +109,7 @@
         <!-- SLIDE 1 -->
         <section class="cx-slide">
             <div class="cx-slide-inner">
-                <div class="cx-tagrow"><span class="cx-eyebrow-dark">Para madres ausentes por ocupación</span><span class="cx-ring"></span></div>
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">Tú lo sabes</span><span class="cx-ring"></span></div>
                 <h1 class="cx-h1">Sabes que no eres una <strong>madre cualquiera</strong>.</h1>
                 <p class="cx-p" style="margin-top:22px">Trabajas, resuelves, te anticipas, te entregas. Y aunque nadie te lo reconoce, <strong>tú sí sabes lo que cuesta</strong>.</p>
                 <p class="cx-hint cx-sweep">Desliza &gt;</p>
@@ -297,7 +304,7 @@
         <section class="cx-slide" id="cxFormSlide">
             <div class="cx-slide-inner">
                 <div class="cx-tagrow"><span class="cx-eyebrow-dark">Muestra gratis</span><span class="cx-ring"></span></div>
-                <div class="cx-stack">
+                <div class="cx-stack" id="cxFormStack">
                     <p class="cx-p">Regístrate para recibir tu muestra gratis el <strong>2 de septiembre 2026</strong>.</p>
                     <form id="registrationForm" class="cx-form-fields">
                         <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
@@ -305,6 +312,15 @@
                         <input type="tel" id="whatsapp" name="whatsapp" required>
                         <button type="submit" id="btn" class="cx-btn">Sí, quiero mi muestra gratis</button>
                     </form>
+                </div>
+                <div class="cx-form-success" id="cxFormSuccess" style="display:none">
+                    <div class="cx-success-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 13l4 4L19 7" stroke="#299aa9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <p class="cx-success-title">¡Registro completado!</p>
+                    <p class="cx-success-sub">Revisa tu correo y WhatsApp: ahí te llegará tu muestra gratis el 2 de septiembre 2026.</p>
                 </div>
             </div>
         </section>
@@ -489,7 +505,8 @@
         fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
             .then(function(){
                 window.cxFormEnviado = true;
-                window.location.href = 'gracias.html';
+                document.getElementById('cxFormStack').style.display = 'none';
+                document.getElementById('cxFormSuccess').style.display = 'flex';
             })
             .catch(function(error){
                 console.error('Error!', error.message);
