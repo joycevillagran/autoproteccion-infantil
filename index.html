@@ -1,394 +1,503 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La primera lección de autoprotección para niños de 3 a 7 años</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            deepBlue: '#162a45',     /* Azul profundo envolvente */
-                            trustBlue: '#1f426e',    /* Azul secundario */
-                            accentGold: '#fde68a',   /* Amarillo/Dorado suave para resaltar */
-                            accentRose: '#f3a39b',   /* Rosa cálido */
-                            cloudWhite: '#ffffff',
-                            textDark: '#2d3748',
-                            softBg: '#f8fafc'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Nunito', 'sans-serif'],
-                    },
-                    animation: {
-                        float1: "float 6s ease-in-out infinite",
-                        float2: "float 8s ease-in-out infinite reverse",
-                        float3: "float 7s ease-in-out infinite 1s",
-                        pulseSoft: "pulseSoft 3s ease-in-out infinite",
-                    },
-                    keyframes: {
-                        float: {
-                            "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
-                            "50%": { transform: "translateY(-20px) rotate(3deg)" }
-                        },
-                        pulseSoft: {
-                            "0%, 100%": { opacity: 1, transform: "scale(1)" },
-                            "50%": { opacity: .9, transform: "scale(1.02)" }
-                        }
-                    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>La primera lección de autoprotección para niños de 3 a 7 años</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+<style>
+    :root{
+        /* Paleta: fondo teal, letra de base celeste, acento/negrita en blanco puro */
+        --c-main:#299aa9;   /* color principal, también usado como texto sobre superficies claras */
+        --c-bg:#299aa9;     /* fondo de página */
+        --c-sec:#b7e5e5;    /* letra de base */
+        --c-accent:#ffffff; /* acento / negrita */
+        --c-card:rgba(255,255,255,0.14); /* superficie translúcida: inputs, selección, pista del anillo */
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--c-bg);overflow:hidden;height:100%}
+    body{
+        color:var(--c-sec);
+        font-family:'Inter',sans-serif;
+        font-weight:400;
+        -webkit-font-smoothing:antialiased;
+        position:relative;
+        height:100vh;
+        height:100svh;
+    }
+    h1{font-family:'Nunito',sans-serif}
+    ::selection{background:var(--c-card)}
+    input:focus,button:focus{outline:none}
+    input::placeholder{color:rgba(255,255,255,0.5)}
+
+    @keyframes cxShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+    .cx-shake{animation:cxShake .35s}
+
+    @keyframes cxHintSweep{
+        0%{background-position:220% 0}
+        100%{background-position:-120% 0}
+    }
+
+    /* ---- Carrusel ---- */
+    .cx-viewport{position:fixed;inset:0;overflow:hidden;touch-action:pan-y;background:var(--c-bg)}
+    .cx-track{display:flex;height:100%;will-change:transform}
+    .cx-track.cx-notransition{transition:none !important}
+    .cx-track.cx-transition{transition:transform 420ms cubic-bezier(.23,1,.32,1)}
+
+    .cx-slide{flex:0 0 100%;width:100%;height:100%;display:flex;align-items:center;padding:0 42px}
+    .cx-slide-inner{max-width:700px;margin:0 auto;width:100%}
+    @media (min-width:768px){ .cx-slide{padding:0 45px} }
+
+    .cx-dragging, .cx-dragging *{user-select:none;-webkit-user-select:none}
+
+    /* ---- Fila etiqueta + anillo de progreso ---- */
+    .cx-tagrow{display:flex;align-items:center;gap:20px;margin-bottom:22px;min-height:20px}
+    .cx-eyebrow-dark{display:inline-block;background:var(--c-accent);color:var(--c-main);font-size:11px;font-weight:700;letter-spacing:0.4px;padding:6px 14px;border-radius:20px}
+    .cx-ring{width:20px;height:20px;border-radius:50%;flex-shrink:0;position:relative}
+    .cx-ring::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--c-bg)}
+
+    /* ---- Cuerpo de texto ---- */
+    .cx-stack{display:flex;flex-direction:column;gap:22px}
+    .cx-stack > .cx-p + .cx-p{margin-top:-6px}
+    .cx-p{margin:0;font-size:17px;line-height:1.7;color:var(--c-sec)}
+    .cx-p strong,.cx-p b{color:var(--c-accent)}
+    .cx-em{color:var(--c-accent);font-weight:700}
+    .cx-emph{margin:0;font-size:19px;line-height:1.6;color:var(--c-accent);font-weight:800;font-family:'Nunito',sans-serif}
+
+    /* ---- Hero (Slide 1) ---- */
+    .cx-h1{font-weight:800;font-size:28px;letter-spacing:-0.8px;line-height:1.15;margin:0;color:var(--c-sec)}
+    .cx-h1 strong{color:var(--c-accent)}
+    @media (min-width:768px){ .cx-h1{font-size:34px} }
+
+    /* ---- Indicador de swipe ---- */
+    .cx-sweep{
+        background-image:linear-gradient(90deg,var(--c-sec) 0%,var(--c-sec) 38%,var(--c-accent) 50%,var(--c-sec) 62%,var(--c-sec) 100%);
+        background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+        animation:cxHintSweep 6s linear infinite;
+    }
+    .cx-hint{margin-top:22px;display:inline-block;font-size:13px;font-weight:700;letter-spacing:0.3px}
+
+    /* ---- Formulario (última slide) ---- */
+    .cx-form-fields{display:flex;flex-direction:column;gap:12px;margin:0}
+    .cx-form-fields input{width:100%;background:var(--c-card);border:2px solid transparent;border-radius:16px;color:var(--c-accent);font-family:inherit;font-size:16px;padding:20px;transition:0.2s;box-sizing:border-box}
+    .cx-form-fields input:focus{border-color:var(--c-accent);background:rgba(255,255,255,0.22)}
+    .cx-btn{margin-top:8px;width:100%;background:var(--c-accent);color:var(--c-main);border:0;border-radius:16px;padding:20px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;cursor:pointer;transition:opacity 200ms}
+    .cx-btn:hover{opacity:0.85}
+    .cx-btn:disabled{opacity:0.6;cursor:default}
+
+    /* Corrección intl-tel-input dentro de un layout de ancho fijo */
+    .iti{width:100% !important;display:block !important}
+    .iti__country-list{z-index:9999;max-width:300px;text-align:left;border-radius:0.75rem;box-shadow:0 10px 25px rgba(0,0,0,0.15);border:none}
+    .iti__selected-dial-code{font-size:0.95rem;color:var(--c-sec);margin-left:4px}
+</style>
+</head>
+<body>
+
+<div class="cx-viewport" id="cxViewport">
+    <div class="cx-track cx-transition" id="cxTrack">
+
+        <!-- SLIDE 1 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">Para madres ausentes por ocupación</span><span class="cx-ring"></span></div>
+                <h1 class="cx-h1">Sabes que no eres una <strong>madre cualquiera</strong>.</h1>
+                <p class="cx-p" style="margin-top:22px">Trabajas, resuelves, te anticipas, te entregas. Y aunque nadie te lo reconoce, <strong>tú sí sabes lo que cuesta</strong>.</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 2 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">El costo silencioso</span><span class="cx-ring"></span></div>
+                <p class="cx-p">Estar ausente para tu hijo por el trabajo, y que <strong>te reclame tus promesas</strong> cada vez que te ve...</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 3 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">El costo silencioso</span><span class="cx-ring"></span></div>
+                <p class="cx-p">Sentir que le estás fallando por perderte momentos como <strong>su primer día de clases</strong>, o una presentación escolar donde él esperaba verte en el público...</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 4 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">El costo silencioso</span><span class="cx-ring"></span></div>
+                <p class="cx-p">Tener que dejarlo con una niñera <strong>sin saber cómo lo trata realmente</strong>...</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 5 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">La razón de fondo</span><span class="cx-ring"></span></div>
+                <p class="cx-p">Trabajas para que tenga una excelente educación, es por eso que lo matriculaste en una buena escuela pagada. Trabajas para que nada le falte, pero eso <strong>sacrifica tu presencia con él</strong>, y te sueles cuestionar si tu ausencia lo perjudica.</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 6 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">La encrucijada</span><span class="cx-ring"></span></div>
+                <p class="cx-p">Quisieras que el día tuviera más horas para abarcar todas tus responsabilidades y sobre todo <strong>estar presente con él</strong>.</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 7 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">La encrucijada</span><span class="cx-ring"></span></div>
+                <p class="cx-p">Pero la encrucijada siempre se presenta: o tu trabajo, que te permite darle lo que necesita, o <strong>tiempo con tu familia</strong>, que también es esencial.</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 8 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">La encrucijada</span><span class="cx-ring"></span></div>
+                <p class="cx-p">Y no puedes elegir, porque sin trabajo no hay comida, techo o escuela: <strong>tú eres el pilar y todo depende de ti.</strong></p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 9 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">La encrucijada</span><span class="cx-ring"></span></div>
+                <div class="cx-stack">
+                    <p class="cx-p">No puedes estar en dos lugares al mismo tiempo. Por eso contratas a la niñera, para que supla tu responsabilidad de traerlo de la escuela, vigilarlo y servirle la comida.</p>
+                    <p class="cx-p">Sin embargo, ella no puede reemplazarte. Y si tu hijo tiene un problema, <strong>ella no lo podrá solucionar.</strong></p>
+                </div>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 10 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-ring"></span></div>
+                <p class="cx-p">Él no puede depender de que estés <span class="cx-em">físicamente con él cada minuto</span>.</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 11 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">La verdadera solución</span><span class="cx-ring"></span></div>
+                <p class="cx-p">Pero tranquila, hay una manera de estar presente con él <strong>sin que estés físicamente ahí</strong>.</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 12 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">La verdadera solución</span><span class="cx-ring"></span></div>
+                <p class="cx-p"><strong>Entregándole herramientas de vida que lleve siempre con él</strong>, así tu presencia permanecerá a su lado.</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 13 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">Lo que la escuela no enseña</span><span class="cx-ring"></span></div>
+                <div class="cx-stack">
+                    <p class="cx-p">Estas herramientas no las cubre la escuela. Se las enseñas tú, en casa, <strong>en el poco tiempo que tienes con él</strong>.</p>
+                    <p class="cx-p">La escuela cumple su función para que tenga un futuro prometedor —le enseña matemáticas y biología—, pero no puede sustituir todas las herramientas que un niño necesita para desenvolverse en la vida.</p>
+                </div>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 14 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">El descubrimiento</span><span class="cx-ring"></span></div>
+                <div class="cx-stack">
+                    <p class="cx-p">Para que tu niño sea competente y autosuficiente, he detectado que hay una herramienta de vida que es la más importante y la más infravalorada del mundo:</p>
+                    <p class="cx-emph">La autoprotección infantil.</p>
+                </div>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 15 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">Por qué esta edad</span><span class="cx-ring"></span></div>
+                <p class="cx-p">Esta herramienta es ideal para niños y niñas de <strong>3 a 7 años</strong>: la etapa en la que empiezan a convivir en espacios de forma más independiente, donde tú no sabes qué hacen, cómo se comportan o con quién interactúan.</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 16 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">Lo que necesita aprender</span><span class="cx-ring"></span></div>
+                <p class="cx-p">Es ahí donde necesita aprender a decir <strong>"No"</strong>, a no confiar en todos, a distinguir lo bueno de lo malo. Necesita aprender a protegerse.</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 17 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-ring"></span></div>
+                <p class="cx-p">La inocencia que más amamos de nuestros hijos es, también, <span class="cx-em">lo que los hace vulnerables.</span></p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 18 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">Tu tranquilidad</span><span class="cx-ring"></span></div>
+                <p class="cx-p">Es por eso que tu hijo no puede depender de que estés físicamente con él cada minuto: que sepa reconocer riesgos y actuar en situaciones de peligro es lo que te va a permitir <strong>sentirte tranquila</strong> cuando él esté en la escuela o con la niñera, y tú en el trabajo.</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 19 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">La invitación</span><span class="cx-ring"></span></div>
+                <div class="cx-stack">
+                    <p class="cx-p">Esta herramienta completa requiere una inversión de <strong>$100</strong>.</p>
+                    <p class="cx-p">Puedes solicitar una <strong>muestra gratis</strong> registrándote ahora.</p>
+                    <p class="cx-p">Tendrás acceso a <em>"Mi primera lección de autoprotección infantil para niños de 3 a 7 años"</em> directamente en tu correo el <strong>2 de septiembre 2026</strong>.</p>
+                </div>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 20 -->
+        <section class="cx-slide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-ring"></span></div>
+                <p class="cx-p">Tu hijo no dependerá únicamente de que tú estés presente para saber cómo actuar. Y tu presencia se sentirá <strong>más fuerte para él</strong>.</p>
+                <p class="cx-hint cx-sweep">Desliza &gt;</p>
+            </div>
+        </section>
+
+        <!-- SLIDE 21 — Formulario -->
+        <section class="cx-slide" id="cxFormSlide">
+            <div class="cx-slide-inner">
+                <div class="cx-tagrow"><span class="cx-eyebrow-dark">Muestra gratis</span><span class="cx-ring"></span></div>
+                <div class="cx-stack">
+                    <p class="cx-p">Regístrate para recibir tu muestra gratis el <strong>2 de septiembre 2026</strong>.</p>
+                    <form id="registrationForm" class="cx-form-fields">
+                        <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
+                        <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+                        <input type="tel" id="whatsapp" name="whatsapp" required>
+                        <button type="submit" id="btn" class="cx-btn">Sí, quiero mi muestra gratis</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+<script>
+    // ================= Carrusel =================
+    (function(){
+        var viewport = document.getElementById('cxViewport');
+        var track = document.getElementById('cxTrack');
+        var slides = Array.prototype.slice.call(track.children);
+        var total = slides.length;
+        var index = 0;
+        var formSlideIndex = slides.indexOf(document.getElementById('cxFormSlide'));
+
+        slides.forEach(function(slide, i){
+            var ring = slide.querySelector('.cx-ring');
+            if (!ring) return;
+            var deg = ((i + 1) / total) * 360;
+            ring.style.background = 'conic-gradient(var(--c-accent) 0deg ' + deg + 'deg, var(--c-card) ' + deg + 'deg 360deg)';
+        });
+
+        function width(){ return viewport.getBoundingClientRect().width; }
+
+        function render(withTransition){
+            track.classList.toggle('cx-transition', withTransition !== false);
+            track.classList.toggle('cx-notransition', withTransition === false);
+            track.style.transform = 'translateX(' + (-index * width()) + 'px)';
+        }
+
+        function goTo(n){
+            // No se puede pasar del formulario sin haberlo enviado.
+            if (formSlideIndex >= 0 && index === formSlideIndex && n > index && !window.cxFormEnviado) {
+                render(true);
+                var inner = slides[index].querySelector('.cx-slide-inner');
+                if (inner) {
+                    inner.classList.remove('cx-shake');
+                    void inner.offsetWidth;
+                    inner.classList.add('cx-shake');
                 }
+                return;
+            }
+            index = Math.max(0, Math.min(total - 1, n));
+            render(true);
+        }
+
+        window.addEventListener('resize', function(){ render(false); });
+        render(false);
+
+        // --- Rueda / trackpad ---
+        var wheelAccum = 0;
+        var wheelLocked = false;
+        var wheelResetTimer = null;
+        var wheelUnlockTimer = null;
+        var WHEEL_THRESHOLD = 55;
+        var WHEEL_UNLOCK_GAP = 220;
+
+        viewport.addEventListener('wheel', function(e){
+            if (e.deltaX !== 0) e.preventDefault();
+            if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+
+            clearTimeout(wheelResetTimer);
+            wheelResetTimer = setTimeout(function(){ wheelAccum = 0; }, 150);
+
+            if (wheelLocked) {
+                clearTimeout(wheelUnlockTimer);
+                wheelUnlockTimer = setTimeout(function(){ wheelLocked = false; wheelAccum = 0; }, WHEEL_UNLOCK_GAP);
+                return;
+            }
+
+            wheelAccum += e.deltaX;
+            if (Math.abs(wheelAccum) > WHEEL_THRESHOLD) {
+                goTo(index + (wheelAccum > 0 ? 1 : -1));
+                wheelAccum = 0;
+                wheelLocked = true;
+                clearTimeout(wheelUnlockTimer);
+                wheelUnlockTimer = setTimeout(function(){ wheelLocked = false; }, WHEEL_UNLOCK_GAP);
+            }
+        }, { passive: false });
+
+        // --- Arrastre (mouse + touch, vía Pointer Events) ---
+        var dragging = false, startX = 0, startTime = 0, dragDX = 0;
+        var W = 0;
+
+        viewport.addEventListener('pointerdown', function(e){
+            // Si el gesto arranca sobre un control del formulario, no capturamos el puntero:
+            // hacerlo redirige el click resultante al viewport en vez del control.
+            if (e.target.closest('input, select, textarea, button, a')) return;
+            dragging = true;
+            startX = e.clientX;
+            startTime = Date.now();
+            dragDX = 0;
+            W = width();
+            document.body.classList.add('cx-dragging');
+            track.classList.remove('cx-transition');
+            track.classList.add('cx-notransition');
+            try { viewport.setPointerCapture(e.pointerId); } catch(err){}
+        });
+
+        viewport.addEventListener('pointermove', function(e){
+            if (!dragging) return;
+            dragDX = e.clientX - startX;
+            var offset = -index * W + dragDX;
+            if (index === 0 && dragDX > 0) offset = -index * W + dragDX / 3;
+            if (index === total - 1 && dragDX < 0) offset = -index * W + dragDX / 3;
+            track.style.transform = 'translateX(' + offset + 'px)';
+        });
+
+        function endDrag(e){
+            if (!dragging) return;
+            dragging = false;
+            document.body.classList.remove('cx-dragging');
+            var elapsed = Date.now() - startTime;
+            var isTap = Math.abs(dragDX) < 8 && elapsed < 350;
+
+            if (isTap) {
+                render(true);
+                return;
+            }
+
+            var THRESHOLD = W * 0.16;
+            if (dragDX < -THRESHOLD) {
+                goTo(index + 1);
+            } else if (dragDX > THRESHOLD) {
+                goTo(index - 1);
+            } else {
+                render(true);
             }
         }
-    </script>
-    <style>
-        body { font-family: 'Inter', sans-serif; color: #2d3748; background-color: #ffffff; overflow-x: hidden; }
-        h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; }
-        .scroll-smooth { scroll-behavior: smooth; }
-        
-        /* Correcciones para intl-tel-input en Tailwind */
-        .iti { width: 100% !important; display: block !important; }
-        .iti__country-list { z-index: 100; max-width: 300px; text-align: left; border-radius: 0.75rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: none; }
-        .iti__selected-dial-code { font-size: 0.95rem; color: #4a5568; margin-left: 4px; }
-        
-        /* Efecto Cristal */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-        }
-    </style>
-</head>
-<body class="scroll-smooth antialiased">
 
-    <section class="relative bg-brand-deepBlue pt-12 pb-32 lg:pb-48 overflow-hidden z-0">
-        <div class="absolute inset-0 pointer-events-none">
-            <svg class="absolute top-20 left-10 md:left-20 w-12 h-12 text-white/10 animate-float1" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <svg class="absolute top-40 right-10 md:right-32 w-10 h-10 text-brand-accentRose/30 animate-float2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            <svg class="absolute bottom-40 left-1/4 w-8 h-8 text-brand-accentGold/20 animate-float3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            <svg class="absolute top-24 right-1/3 w-6 h-6 text-white/15 animate-float1" style="animation-delay: 2s;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-        </div>
+        viewport.addEventListener('pointerup', endDrag);
+        viewport.addEventListener('pointercancel', endDrag);
+        viewport.addEventListener('pointerleave', function(e){ if (dragging) endDrag(e); });
 
-        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center mt-8">
-            <span data-aos="fade-down" class="inline-block bg-brand-accentGold text-brand-deepBlue font-bold px-4 py-1.5 rounded-full text-sm uppercase tracking-wider mb-6 shadow-md">
-                Acceso Anticipado
-            </span>
-            
-            <h1 data-aos="fade-up" data-aos-duration="1000" class="text-3xl md:text-5xl lg:text-6xl font-black text-white font-heading leading-tight mb-10 drop-shadow-lg">
-                La primera lección de autoprotección para <span class="text-brand-accentGold">niños de 3 a 7 años</span>
-            </h1>
-            
-            <div data-aos="fade-up" data-aos-delay="200" class="glass-card rounded-[2rem] p-8 md:p-10 mb-8 max-w-3xl mx-auto">
-                <p class="text-base md:text-lg text-gray-600 font-medium italic mb-4">
-                    Hay una pregunta que toda madre y padre se hace en silencio, y casi nunca dice en voz alta:
-                </p>
-                <p class="text-xl md:text-3xl font-black text-brand-deepBlue font-heading">
-                    "¿Mi hijo sabría qué hacer si yo no estuviera ahí?"
-                </p>
-            </div>
-
-            <p data-aos="fade-in" data-aos-delay="400" class="text-base md:text-xl text-blue-100/90 leading-relaxed max-w-2xl mx-auto font-medium">
-                Lo pensamos cuando lo dejamos en la escuela, cuando juega en el parque con otros niños, cuando va a una fiesta, o cuando se queda con alguien que no elegimos del todo nosotros.
-            </p>
-        </div>
-
-        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[60px] md:h-[120px]">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118,130.9,122.9,190.25,108.7,236.4,97.77,280.9,78.29,321.39,56.44Z" fill="#f8fafc"></path>
-            </svg>
-        </div>
-    </section>
-
-    <section class="bg-brand-softBg py-16 md:py-24 relative z-10">
-        <div class="max-w-4xl mx-auto px-6">
-            <div data-aos="fade-up" class="flex flex-col sm:flex-row items-center justify-center gap-10 mb-16">
-                <div class="relative group">
-                    <div class="absolute inset-0 bg-brand-trustBlue rounded-full blur-md opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-                    <div class="relative flex-shrink-0 w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-8 border-white shadow-xl bg-gray-100 flex items-center justify-center text-gray-400 font-sans italic text-sm text-center p-4">
-                        <img src="foto_joyce.jpg" alt="Foto de Joyce" class="w-full h-full object-cover">
-                        </div>
-                </div>
-                
-                <div class="max-w-lg text-center sm:text-left">
-                    <p class="text-lg md:text-xl leading-relaxed text-gray-700 font-medium">
-                        Soy <span class="font-bold text-brand-deepBlue">Joyce Villagrán</span>, mamá de un niño de 5 años, y durante años evité esa pregunta. Hasta que entendí algo que cambió la forma en que veo su seguridad:
-                    </p>
-                </div>
-            </div>
-
-            <div data-aos="zoom-in" class="bg-white rounded-3xl p-8 md:p-12 shadow-[0_10px_30px_rgba(0,0,0,0.03)] border border-gray-100 my-12 text-center relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-2 h-full bg-brand-accentGold"></div>
-                <p class="text-xl md:text-2xl lg:text-3xl font-black text-brand-deepBlue font-heading leading-tight">
-                    La inocencia que más amamos de nuestros hijos es, también, lo que los hace vulnerables.
-                </p>
-            </div>
-
-            <div data-aos="fade-up" class="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed text-gray-700 text-center sm:text-left">
-                <p class="font-semibold text-red-500/90 bg-red-50 p-4 rounded-xl border border-red-100">
-                    A abuso, secuestros, a situaciones de riesgo que pueden marcarlos física y emocionalmente para el resto de su vida.
-                </p>
-                <p>
-                    No te lo digo para asustarte. Te lo digo porque la mayoría de los padres prefiere no pensarlo, hasta que ya es tarde. Y porque sí existe algo que puedes hacer hoy: enseñarle a tu hijo a reconocer el peligro y actuar, sin que pierda su inocencia ni viva con miedo.
-                </p>
-            </div>
-
-            <div data-aos="fade-up" class="mt-16 text-center">
-                <p class="inline-block text-xl md:text-2xl font-black text-brand-deepBlue font-heading border-b-4 border-brand-accentGold pb-2">
-                    Por eso creé la primera lección de autoprotección para niños de 3 a 7 años
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-white py-24 relative">
-        <div class="max-w-5xl mx-auto px-6">
-            <h2 data-aos="fade-up" class="text-3xl md:text-4xl font-black text-center text-brand-deepBlue font-heading mb-16">
-                Lo vas a vivir:
-            </h2>
-            
-            <div class="grid md:grid-cols-2 gap-8 items-stretch">
-                <div data-aos="fade-right" class="bg-gray-50 rounded-[2rem] p-8 md:p-10 shadow-sm border border-gray-100">
-                    <div class="flex items-center space-x-4 mb-8">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center font-bold text-lg">✕</div>
-                        <h3 class="text-2xl font-bold text-gray-600 font-heading">Antes</h3>
-                    </div>
-                    <ul class="space-y-5 text-gray-600 text-lg">
-                        <li class="flex items-start"><span class="text-gray-400 mr-3 mt-1 font-bold">•</span><span>Mi hijo es muy inocente.</span></li>
-                        <li class="flex items-start"><span class="text-gray-400 mr-3 mt-1 font-bold">•</span><span>No sé cómo hablarle de esto sin asustarlo.</span></li>
-                        <li class="flex items-start"><span class="text-gray-400 mr-3 mt-1 font-bold">•</span><span>Me preocupa que confíe demasiado en cualquier persona.</span></li>
-                        <li class="flex items-start"><span class="text-gray-400 mr-3 mt-1 font-bold">•</span><span>No sé exactamente qué enseñarle para prepararlo.</span></li>
-                    </ul>
-                </div>
-
-                <div data-aos="fade-left" class="bg-brand-deepBlue text-white rounded-[2rem] p-8 md:p-10 shadow-xl relative overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-trustBlue rounded-bl-full opacity-50"></div>
-                    <div class="flex items-center space-x-4 mb-8 relative z-10">
-                        <div class="w-12 h-12 rounded-full bg-brand-accentGold text-brand-deepBlue flex items-center justify-center font-bold text-xl shadow-lg">✓</div>
-                        <h3 class="text-2xl font-bold text-white font-heading">Después</h3>
-                    </div>
-                    <ul class="space-y-5 text-blue-50 text-lg relative z-10">
-                        <li class="flex items-start"><span class="text-brand-accentGold mr-3 font-bold mt-1">✓</span><span>Mi hijo reconoce señales básicas de peligro.</span></li>
-                        <li class="flex items-start"><span class="text-brand-accentGold mr-3 font-bold mt-1">✓</span><span>Sabe identificar cuándo algo lo hace sentir incómodo.</span></li>
-                        <li class="flex items-start"><span class="text-brand-accentGold mr-3 font-bold mt-1">✓</span><span>Tiene herramientas simples para pedir ayuda.</span></li>
-                        <li class="flex items-start"><span class="text-brand-accentGold mr-3 font-bold mt-1">✓</span><span>Hemos practicado juntos qué hacer en distintas situaciones.</span></li>
-                        <li class="flex items-start font-semibold text-white bg-white/10 p-3 rounded-xl backdrop-blur-sm"><span class="text-brand-accentGold mr-3 font-bold mt-1">✓</span><span>Me siento más tranquila porque sé que está mejor preparado.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-brand-softBg py-24 relative overflow-hidden">
-        <div class="max-w-5xl mx-auto px-6 relative z-10">
-            
-            <div class="mb-24">
-                <h2 data-aos="fade-up" class="text-3xl md:text-4xl font-black text-center text-brand-deepBlue font-heading mb-12">
-                    ¿Qué incluye esta primera lección?
-                </h2>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div data-aos="zoom-in" data-aos-delay="100" class="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                        <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-6 text-brand-trustBlue">
-                            <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-brand-deepBlue font-heading mb-4">Video corto para padres</h3>
-                        <p class="text-gray-600 leading-relaxed">Te enseño cómo introducir este tema de forma natural, sin generar miedo ni ansiedad. Una estrategia simple que cualquier niño pequeño puede comprender y recordar.</p>
-                    </div>
-                    <div data-aos="zoom-in" data-aos-delay="200" class="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                        <div class="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mb-6 text-brand-accentRose">
-                            <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                        </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-brand-deepBlue font-heading mb-4">Cuento animado para tu hijo</h3>
-                        <p class="text-gray-600 leading-relaxed">Una historia donde tu hijo ve una situación cotidiana, identifica señales de alerta y aprende qué hacer. Entretenida, fácil de entender, apropiada para su edad.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="max-w-2xl mx-auto">
-                <h2 data-aos="fade-up" class="text-3xl md:text-4xl font-black text-center text-brand-deepBlue font-heading mb-12">Cómo se usa</h2>
-                <div class="space-y-6">
-                    <div data-aos="fade-up" data-aos-delay="100" class="bg-white rounded-2xl p-6 flex items-center shadow-sm border border-gray-100">
-                        <div class="flex-shrink-0 w-12 h-12 bg-brand-deepBlue text-white font-bold rounded-full flex items-center justify-center text-xl mr-6">1</div>
-                        <p class="text-lg md:text-xl font-medium text-gray-700">Primero ves tú el video.</p>
-                    </div>
-                    <div data-aos="fade-up" data-aos-delay="200" class="bg-white rounded-2xl p-6 flex items-center shadow-sm border border-gray-100">
-                        <div class="flex-shrink-0 w-12 h-12 bg-brand-trustBlue text-white font-bold rounded-full flex items-center justify-center text-xl mr-6">2</div>
-                        <p class="text-lg md:text-xl font-medium text-gray-700">Luego tu hijo ve el cuento animado contigo.</p>
-                    </div>
-                    <div data-aos="fade-up" data-aos-delay="300" class="bg-brand-accentGold rounded-2xl p-6 flex items-center shadow-md border border-yellow-300 transform scale-105">
-                        <div class="flex-shrink-0 w-12 h-12 bg-white text-brand-deepBlue font-bold rounded-full flex items-center justify-center text-xl mr-6 shadow-sm">3</div>
-                        <p class="text-lg md:text-xl font-black text-brand-deepBlue">Conversan y practican juntos lo aprendido.</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="registro" class="bg-brand-deepBlue relative py-24 z-10 overflow-hidden">
-        <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0] rotate-180">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[60px] md:h-[120px]">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118,130.9,122.9,190.25,108.7,236.4,97.77,280.9,78.29,321.39,56.44Z" fill="#f8fafc"></path>
-            </svg>
-        </div>
-
-        <div class="max-w-4xl mx-auto px-4 md:px-6 relative z-10 pt-10">
-            <div data-aos="zoom-in" class="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-2xl relative">
-                
-                <div class="text-center mb-10">
-                    <span class="inline-block bg-brand-deepBlue text-brand-accentGold text-sm px-5 py-2 rounded-full font-bold uppercase tracking-wider mb-4 shadow-sm">Grupo Fundador</span>
-                    <h2 class="text-3xl md:text-4xl font-black text-brand-deepBlue font-heading mb-6">Acceso anticipado: grupo fundador</h2>
-                    <p class="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">Voy a lanzar esta primera lección a un grupo reducido de familias antes de abrirla al público. Si te registras hoy, formas parte de este grupo fundador y serás de las primeras personas en recibir, totalmente gratis, el video para ti y el cuento animado para tu hijo — directo a tu correo y WhatsApp, en los próximos 7 días.</p>
-                </div>
-
-                <div class="flex justify-center mb-10">
-                    <div class="bg-yellow-50 border border-brand-accentGold rounded-2xl p-4 inline-flex items-center gap-3 shadow-sm">
-                        <svg class="w-6 h-6 text-yellow-600 animate-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                        <p class="text-yellow-800 font-bold text-sm md:text-base">Solo voy a abrir este acceso anticipado a las primeras 50 familias.</p>
-                    </div>
-                </div>
-
-                <form id="registrationForm" class="max-w-md mx-auto space-y-5 mb-8">
-                    <div class="text-left">
-                        <label for="nombre" class="block text-sm font-bold text-gray-700 mb-1 ml-2">Nombre completo</label>
-                        <input type="text" id="nombre" name="nombre" required placeholder="Ej: María Pérez" class="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:ring-0 focus:border-brand-deepBlue outline-none shadow-sm transition-all text-base bg-gray-50 hover:bg-white">
-                    </div>
-
-                    <div class="text-left">
-                        <label for="email" class="block text-sm font-bold text-gray-700 mb-1 ml-2">Correo electrónico</label>
-                        <input type="email" id="email" name="email" required placeholder="tu@correo.com" class="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:ring-0 focus:border-brand-deepBlue outline-none shadow-sm transition-all text-base bg-gray-50 hover:bg-white">
-                    </div>
-                    
-                    <div class="text-left relative">
-                        <label for="whatsapp" class="block text-sm font-bold text-gray-700 mb-1 ml-2">Número de WhatsApp</label>
-                        <input type="tel" id="whatsapp" name="whatsapp" required class="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:ring-0 focus:border-brand-deepBlue outline-none shadow-sm transition-all text-base bg-gray-50 hover:bg-white">
-                    </div>
-
-                    <button type="submit" class="w-full bg-brand-deepBlue hover:bg-brand-trustBlue text-brand-accentGold font-heading font-black text-xl px-6 py-5 rounded-2xl shadow-xl transition-all transform hover:-translate-y-1 active:scale-[0.98] flex items-center justify-center gap-3 mt-6">
-                        Sí, quiero que mi hijo sepa protegerse 
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
-                </form>
-                
-                <p class="text-sm text-gray-500 mb-10 max-w-sm mx-auto text-center font-medium">(Te enviaremos el acceso a la clase y el cuento animado por WhatsApp para tu comodidad)</p>
-
-                <div class="max-w-lg mx-auto text-left space-y-4 border-t border-gray-100 pt-8">
-                    <div class="flex items-start text-base text-gray-700"><span class="text-green-500 mr-3 font-bold text-xl">✔</span><span class="font-medium">Acceso gratuito por ser parte del grupo fundador</span></div>
-                    <div class="flex items-start text-base text-gray-700"><span class="text-green-500 mr-3 font-bold text-xl">✔</span><span class="font-medium">Diseñado para niños de 3 a 7 años</span></div>
-                    <div class="flex items-start text-base text-gray-700"><span class="text-green-500 mr-3 font-bold text-xl">✔</span><span class="font-medium">Sin alarmismo ni contenido traumático</span></div>
-                    <div class="flex items-start text-base text-gray-700"><span class="text-green-500 mr-3 font-bold text-xl">✔</span><span class="font-medium">Creado por una madre, para otras madres y padres</span></div>
-                    <div class="flex items-start text-base text-gray-700"><span class="text-green-500 mr-3 font-bold text-xl">✔</span><span class="font-medium">Recibirás tu acceso directo en tu correo y WhatsApp, en un máximo de 7 días</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-white py-24">
-        <div class="max-w-3xl mx-auto px-6">
-            <h2 data-aos="fade-up" class="text-3xl md:text-4xl font-black text-center text-brand-deepBlue font-heading mb-12">"Pero, ¿de verdad necesito esto?"</h2>
-            <div data-aos="fade-up" data-aos-delay="100" class="space-y-6 text-lg leading-relaxed text-gray-700">
-                <p class="font-bold text-brand-trustBlue text-xl">Si tu hijo va a la escuela, juega con otros niños sin que estés justo al lado, o se encuentra al cuidado de alguien más porque tú estás trabajando... entonces sí, lo necesita.</p>
-                <p>Queremos pensar que a nuestro hijo "eso" no le va a pasar. Es lo que pensamos todos, hasta que deja de ser hipotético.</p>
-                <p>No se trata de vivir con miedo. Se trata de que tu hijo tenga, hoy, las herramientas que la mayoría de los niños no tiene: reconocer cuándo algo no está bien y saber qué hacer al respecto.</p>
-                <p class="bg-gray-50 border-l-4 border-brand-accentGold rounded-r-2xl p-6 italic font-medium mt-6 text-gray-800 shadow-sm">Eso no te lo va a enseñar la escuela. Y entre más esperes, más tiempo pasa sin que él lo sepa.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-brand-softBg py-24 text-center px-6 border-t border-gray-100">
-        <div data-aos="zoom-in" class="max-w-3xl mx-auto">
-            <p class="text-2xl md:text-3xl lg:text-4xl font-heading font-black text-brand-deepBlue leading-tight mb-12">
-                Porque la mejor protección no es estar siempre a su lado. Es enseñarle qué hacer cuando tú no estás.
-            </p>
-            <a href="#registro" class="inline-block bg-brand-deepBlue hover:bg-brand-trustBlue text-brand-accentGold font-heading font-black text-xl px-10 py-6 rounded-2xl shadow-xl transition-all transform hover:-translate-y-1 active:translate-y-0">
-                Quiero el acceso gratuito →
-            </a>
-        </div>
-    </section>
-
-    <footer class="bg-brand-deepBlue text-white/50 py-12 text-center text-sm border-t border-white/10">
-        <div class="max-w-4xl mx-auto px-6">
-            <p>© 2026 Autoprotección Infantil. Todos los derechos reservados.</p>
-            <p class="mt-2">Diseñado con respeto y compromiso con la seguridad de nuestros hijos.</p>
-        </div>
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
-    <script>
-        // Inicializar animaciones de scroll
-        AOS.init({
-            once: true,
-            offset: 50,
-            duration: 800,
-            easing: 'ease-out-cubic',
+        // --- Teclado (desktop) ---
+        document.addEventListener('keydown', function(e){
+            if (e.altKey || e.ctrlKey || e.metaKey) return;
+            var tag = e.target && e.target.tagName;
+            if (/^(INPUT|TEXTAREA|SELECT)$/.test(tag) || (e.target && e.target.isContentEditable)) return;
+            if (e.key === 'ArrowRight') { e.preventDefault(); goTo(index + 1); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(index - 1); }
         });
+    })();
 
-        // Inicializar input de teléfono
-        const input = document.querySelector("#whatsapp");
-        const iti = window.intlTelInput(input, {
-            initialCountry: "auto",
-            geoIpLookup: function(success, failure) {
-                fetch('https://ipapi.co/json/')
-                    .then(response => response.json())
-                    .then(data => success(data.country_code))
-                    .catch(() => success('MX')); 
-            },
-            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
-            separateDialCode: true,
-            preferredCountries: ["mx", "co", "es", "ar", "pe", "cl"]
-        });
+    // ---- Teléfono (WhatsApp) ----
+    var whatsappInput = document.querySelector('#whatsapp');
+    var iti = window.intlTelInput(whatsappInput, {
+        initialCountry: 'auto',
+        // geojs.io en vez de ipapi.co: ipapi.co devuelve 429 (rate limit) bajo tráfico normal.
+        geoIpLookup: function(success, failure) {
+            fetch('https://get.geojs.io/v1/ip/country.json')
+                .then(function(res){ return res.json(); })
+                .then(function(data){ success(data.country); })
+                .catch(function(){ success('MX'); });
+        },
+        utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js',
+        separateDialCode: true,
+        preferredCountries: ['mx', 'co', 'es', 'ar', 'pe', 'cl'],
+        // El carrusel tiene overflow:hidden — sin esto, el dropdown de país queda recortado.
+        dropdownContainer: document.body
+    });
 
-        // Conexión con Google Sheets
-        const form = document.getElementById('registrationForm');
-        
-        // URL generada por Google Apps Script
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzoserlmhUvKK8hd5qrxOBVNYV2-qhTZqAibRivJ8JAv5Dxmd-hvNj-AOFa-WWIAPS0/exec'; 
+    // ---- Envío a Google Sheets ----
+    window.cxFormEnviado = false;
+    var form = document.getElementById('registrationForm');
+    var scriptURL = 'https://script.google.com/macros/s/AKfycbzoserlmhUvKK8hd5qrxOBVNYV2-qhTZqAibRivJ8JAv5Dxmd-hvNj-AOFa-WWIAPS0/exec';
 
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            
-            // Cambiar el texto del botón mientras envía
-            const btn = form.querySelector('button[type="submit"]');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = 'Enviando tus datos...';
-            btn.disabled = true;
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var btn = form.querySelector('button[type="submit"]');
+        var originalText = btn.innerHTML;
+        btn.innerHTML = 'Enviando tus datos...';
+        btn.disabled = true;
 
-            // Obtener el número completo (código de país + número)
-            const fullPhoneNumber = iti.getNumber();
+        var fullPhoneNumber = iti.getNumber();
+        var formData = new FormData(form);
+        formData.set('whatsapp', fullPhoneNumber);
 
-            // Preparar los datos
-            const formData = new FormData(form);
-            formData.set('whatsapp', fullPhoneNumber); 
-
-            // Enviar datos
-            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors'})
-                .then(response => {
-                    alert('¡Felicidades! Te has registrado con éxito al grupo fundador. Revisa tu correo y WhatsApp pronto.');
-                    form.reset();
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                })
-                .catch(error => {
-                    console.error('Error!', error.message);
-                    alert('Hubo un error al enviar tus datos. Por favor, intenta de nuevo.');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                });
-        });
-    </script>
+        fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(function(){
+                window.cxFormEnviado = true;
+                window.location.href = 'gracias.html';
+            })
+            .catch(function(error){
+                console.error('Error!', error.message);
+                alert('Hubo un error al enviar tus datos. Por favor, intenta de nuevo.');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+    });
+</script>
 </body>
 </html>
